@@ -11,9 +11,7 @@ def signin(request):
         if forms.is_valid():
             username = forms.cleaned_data['username']
             password = forms.cleaned_data['password']
-            print('Username:', username, 'Password:', password)
             user = authenticate(username=username, password=password)
-            print('User:', user)
             if user:
                 login(request, user)
                 return redirect('home')
@@ -34,8 +32,6 @@ def signup(request):
             username = forms.cleaned_data['username']
             password = forms.cleaned_data['password']
             confirm_password = forms.cleaned_data['confirm_password']
-            print(username)
-            print(password)
             if password == confirm_password:
                 User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
                 return redirect('signin')
