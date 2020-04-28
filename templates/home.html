@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-login100" style="background-image: url({% static 'images/bg-01.jpg' %})">
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div class="m-b-23">
+            <h2>Welcome {{ request.user }}!</h2>
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+        <div class="m-b-23">
+            <h5>Name: {{ request.user.first_name }} {{ request.user.last_name }}</h5>
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+        <div class="m-b-23">
+            <h5>Email: {{ request.user.email }}</h5>
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+        <div class="m-b-23">
+            <a href="{% url 'signout' %}" class="btn btn-primary">Logout</a>
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
