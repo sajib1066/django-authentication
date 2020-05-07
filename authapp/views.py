@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 
 from .forms import LoginForm, RegistrationForm      
 
@@ -33,8 +34,15 @@ def signup(request):
             password = forms.cleaned_data['password']
             confirm_password = forms.cleaned_data['confirm_password']
             if password == confirm_password:
-                User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
-                return redirect('signin')
+                try:
+                    User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
+                    return redirect('signin')
+                except:
+                    context = {
+                        'form': forms,
+                        'error': 'This Username Already exists!'
+                    }
+                    return render(request, 'signup.html', context)
     context = {
         'form': forms
     }
